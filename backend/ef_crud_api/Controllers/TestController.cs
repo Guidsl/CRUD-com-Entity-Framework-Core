@@ -1,3 +1,4 @@
+/*
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ef_crud_api.Data;
@@ -31,3 +32,4 @@ namespace ef_crud_api.Controllers
         }
     }
 }
+*/

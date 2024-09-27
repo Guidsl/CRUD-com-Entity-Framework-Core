@@ -9,7 +9,13 @@ namespace ef_crud_api.Data
     public class ApplicationDbContext : DbContext
     {
         // Construtor da classe ApplicationDbContext, que recebe as opções de configuração
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext()
+        {
+        }
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+        }
 
         // Define um conjunto de dados para a tabela de produtos
         public DbSet<Product> Products { get; set; }

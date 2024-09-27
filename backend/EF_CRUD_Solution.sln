@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ef_crud_api", "ef_crud_api\ef_crud_api.csproj", "{4354D563-4710-4E1E-AF92-C769D84B73BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ef_crud_api.Tests", "ef_crud_api.Tests\ef_crud_api.Tests.csproj", "{C664E712-1E17-409C-99AF-71F38D4CB87E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4354D563-4710-4E1E-AF92-C769D84B73BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4354D563-4710-4E1E-AF92-C769D84B73BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4354D563-4710-4E1E-AF92-C769D84B73BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4354D563-4710-4E1E-AF92-C769D84B73BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C664E712-1E17-409C-99AF-71F38D4CB87E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C664E712-1E17-409C-99AF-71F38D4CB87E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C664E712-1E17-409C-99AF-71F38D4CB87E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C664E712-1E17-409C-99AF-71F38D4CB87E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
