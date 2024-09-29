@@ -12,6 +12,13 @@ namespace ef_crud_api.Data
         public ApplicationDbContext()
         {
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18,2)");  // ou
+                //.HasPrecision(18, 2); // Alternativa com .HasPrecision()
+        }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

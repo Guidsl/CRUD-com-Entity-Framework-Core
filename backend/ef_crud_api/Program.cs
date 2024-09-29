@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-
 using Microsoft.OpenApi.Models;
 using ef_crud_api.Data; // Adicione a referência ao seu DbContext
 
@@ -21,6 +20,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Adicione suporte aos controladores
 builder.Services.AddControllers();
 
+// Configura e ativa o CORS (substitui o que estava no Startup.cs)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+        builder.AllowAnyOrigin()  // Permite qualquer origem
+               .AllowAnyMethod()  // Permite qualquer método (GET, POST, etc.)
+               .AllowAnyHeader()); // Permite qualquer cabeçalho
+});
+
 var app = builder.Build();
 
 // Configure o pipeline de requisições HTTP
@@ -34,9 +42,15 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// Use o redirecionamento de HTTPS
 app.UseHttpsRedirection();
+
+// Coloque o middleware de CORS entre UseRouting e UseAuthorization
+app.UseRouting();
+app.UseCors("AllowAll"); // Ativa o CORS com a política "AllowAll"
 app.UseAuthorization();
 
-app.MapControllers(); // Isso registra os controladores
+// Mapeia os controladores para os endpoints de API
+app.MapControllers();
 
 app.Run();

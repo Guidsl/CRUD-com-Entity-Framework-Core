@@ -1,33 +1,51 @@
-// src/components/ProductForm.jsx
+// src/components/ProductForm.js
 import React, { useState } from 'react';
-import { addProduct, updateProduct } from '../api';
+import { addProduct } from '../api'; // Certifique-se de ter a função de API para adicionar produtos
 
-const ProductForm = ({ product, onSubmit }) => {
-  const [name, setName] = useState(product ? product.name : '');
+const ProductForm = () => {
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newProduct = { name };
+    const newProduct = { name, price: parseFloat(price) };
 
-    if (product) {
-      await updateProduct(product.id, newProduct);
-    } else {
+    try {
       await addProduct(newProduct);
+      alert('Product added successfully!');
+      // Limpa os campos após a adição
+      setName('');
+      setPrice('');
+    } catch (error) {
+      console.error('Error adding product:', error);
     }
-
-    onSubmit();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Product Name"
-      />
-      <button type="submit">{product ? 'Update' : 'Add'} Product</button>
-    </form>
+    <div>
+      <h2>Add New Product</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Price:</label>
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Add Product</button>
+      </form>
+    </div>
   );
 };
 

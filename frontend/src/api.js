@@ -1,9 +1,17 @@
 // src/api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5162/api/products'; // ajuste a URL se necessário
+const API_URL = 'http://localhost:5162/api/products';
 
-export const getProducts = () => axios.get(API_URL);
-export const addProduct = (product) => axios.post(API_URL, product);
-export const updateProduct = (id, product) => axios.put(`${API_URL}/${id}`, product);
-export const deleteProduct = (id) => axios.delete(`${API_URL}/${id}`);
+export const getProducts = async () => {
+    try {
+        const response = await axios.get(API_URL);
+        return response; // Retorna a resposta
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        throw error; // Lança o erro para tratamento na chamada
+    }
+};
+export const addProduct = (product) => {
+    return axios.post(API_URL, product);
+};

@@ -1,21 +1,35 @@
+// src/App.js
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import ProductList from './components/ProductList';
 import ProductForm from './components/ProductForm';
+import TestButton from './components/TestButton'; // Importa o TestButton
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>My Product App</h1>
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <h1>My Product App</h1>
+          
+          {/* Link para adicionar um novo produto */}
+          <Link to="/products/new">Add New Product</Link>
 
-        {/* Formulário para adicionar um novo produto */}
-        <ProductForm />
+          {/* Adicionando o TestButton aqui */}
+          <TestButton />
 
-        {/* Lista de produtos */}
-        <ProductList />
-      </header>
-    </div>
+          {/* Definindo rotas com Routes e Route */}
+          <Routes>
+            {/* Rota para o formulário de adicionar produto */}
+            <Route path="/products/new" element={<ProductForm />} />
+            
+            {/* Rota para listar produtos */}
+            <Route path="/" element={<ProductList />} />
+          </Routes>
+        </header>
+      </div>
+    </Router>
   );
 }
 

@@ -6,14 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Cors;
 
 namespace ef_crud_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowAll")]
     public class ProductsController : ControllerBase
     {
         private readonly ApplicationDbContext _context; // Injeção do DbContext para acessar o banco de dados
+
+        // GET: api/products/test-cors
+        [HttpGet("test-cors")]
+        public ActionResult<string> TestCors()
+        {
+            return "CORS is working!";
+        }
 
         // Construtor que injeta o DbContext no controlador
         public ProductsController(ApplicationDbContext context)
@@ -53,15 +62,27 @@ namespace ef_crud_api.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            // Adiciona o novo produto ao contexto do banco de dados
-            _context.Products.Add(product);
+            // Validação do modelo
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); // Retorna 400 Bad Request se o modelo não for válido
+            }
 
-            // Salva as mudanças de forma assíncrona no banco de dados
-            await _context.SaveChangesAsync();
-
-            // Retorna 201 (Created) com o novo produto e a URL onde ele pode ser acessado
-            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+            try
+            {
+                _context.Products.Add(product);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+            }
+            catch (Exception ex)
+            {
+                // Loga a exceção (pode usar um logger ou apenas Console.WriteLine)
+                Console.WriteLine($"Erro ao salvar o produto: {ex.Message}");
+                return StatusCode(500, "Erro ao salvar o produto.");
+            }
         }
+
+
 
         // PUT: api/products/5
         // Método PUT para atualizar um produto existente
@@ -130,4 +151,5 @@ namespace ef_crud_api.Controllers
             return _context.Products.Any(e => e.Id == id);
         }
     }
+    
 }
