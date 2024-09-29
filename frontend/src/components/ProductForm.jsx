@@ -5,10 +5,11 @@ import { addProduct } from '../api'; // Certifique-se de ter a função de API p
 const ProductForm = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
+  const [description, setDescription] = useState(''); // Estado para o campo "description"
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newProduct = { name, price: parseFloat(price) };
+    const newProduct = { name, price: parseFloat(price), description };
 
     try {
       await addProduct(newProduct);
@@ -16,6 +17,7 @@ const ProductForm = () => {
       // Limpa os campos após a adição
       setName('');
       setPrice('');
+      setDescription(''); // Limpa o campo "description"
     } catch (error) {
       console.error('Error adding product:', error);
     }
@@ -40,6 +42,15 @@ const ProductForm = () => {
             type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Description:</label>
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             required
           />
         </div>

@@ -1,31 +1,40 @@
-// src/App.js
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import ProductList from './components/ProductList';
 import ProductForm from './components/ProductForm';
-import TestButton from './components/TestButton'; // Importa o TestButton
+import ProductSearch from './components/ProductSearch';
+import ProductUpdate from './components/ProductUpdate';
 
 function App() {
+  const [showProductList, setShowProductList] = useState(false);
+  const [showProductForm, setShowProductForm] = useState(false);
+  const [showProductSearch, setShowProductSearch] = useState(false);
+
   return (
     <Router>
       <div className="App">
         <header className="App-header">
-          <h1>My Product App</h1>
-          
-          {/* Link para adicionar um novo produto */}
-          <Link to="/products/new">Add New Product</Link>
+          <h1>Product Management</h1>
 
-          {/* Adicionando o TestButton aqui */}
-          <TestButton />
+          {/* Botões para exibir as funcionalidades */}
+          <button onClick={() => setShowProductList(!showProductList)}>
+            {showProductList ? 'Hide Product List' : 'Show Product List'}
+          </button>
+          <button onClick={() => setShowProductForm(!showProductForm)}>
+            {showProductForm ? 'Hide Add Product Form' : 'Show Add Product Form'}
+          </button>
+          <button onClick={() => setShowProductSearch(!showProductSearch)}>
+            {showProductSearch ? 'Hide Search Product' : 'Show Search Product'}
+          </button>
 
-          {/* Definindo rotas com Routes e Route */}
+          {/* Exibir os componentes com base no estado */}
+          {showProductList && <ProductList />}
+          {showProductForm && <ProductForm />}
+          {showProductSearch && <ProductSearch />}
+
           <Routes>
-            {/* Rota para o formulário de adicionar produto */}
-            <Route path="/products/new" element={<ProductForm />} />
-            
-            {/* Rota para listar produtos */}
-            <Route path="/" element={<ProductList />} />
+            <Route path="/products/update/:id" element={<ProductUpdate />} />
           </Routes>
         </header>
       </div>
